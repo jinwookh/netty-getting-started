@@ -12,7 +12,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws InterruptedException {
  	    final ByteBuf time = ctx.alloc().buffer(4);
         int timeValue = (int) (System.currentTimeMillis() / 1000L + 2208988800L);
-        System.out.println("request invokded. gonna write this time value: " + timeValue);
+        System.out.println("request invoked. gonna write this time value: " + timeValue);
 
         time.writeInt(timeValue);
 
