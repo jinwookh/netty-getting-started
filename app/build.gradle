@@ -23,13 +23,11 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
     implementation group: 'io.netty', name: 'netty-all', version: '4.1.63.Final'
+    implementation group: 'io.projectreactor.netty', name: 'reactor-netty', version: '1.0.22'
+
 
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = 'netty.tutorial.App'
-}
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.

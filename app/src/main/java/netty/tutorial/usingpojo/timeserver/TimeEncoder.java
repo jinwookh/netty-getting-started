@@ -1,3 +1,11 @@
+package netty.tutorial.usingpojo.timeserver;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
+import io.netty.channel.ChannelPromise;
+import netty.tutorial.usingpojo.UnixTime;
+
 public class TimeEncoder extends ChannelOutboundHandlerAdapter {
 
 	@Override
