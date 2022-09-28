@@ -33,3 +33,18 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+mainClassName = "nettyreactor.TcpServerApplication"
+
+
+jar {
+  manifest {
+    attributes(
+      'Main-Class': "$mainClassName"
+    )
+  }
+
+  from {
+      configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
