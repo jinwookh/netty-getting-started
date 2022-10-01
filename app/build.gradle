@@ -34,7 +34,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-mainClassName = "nettyreactor.TcpServerApplication"
+mainClassName = "nettyreactor.TcpEchoServerApplication"
 
 
 jar {
