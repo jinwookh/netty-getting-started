@@ -31,6 +31,7 @@ public class TimeServer {
 				@Override
 				public void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(new TimeEncoder(), new TimeServerHandler());
+					// TimeEncoder는 OutboundHandlerAdapter이고, TimeServerHandler는 InboundHandlerAdapter다.
 					// TimeEncoder를 TimeServerHandler 후에 넣으면 오류가 발생한다.
 					// 왜 TimeEncoder를 TimeServerHandler 전에 넣어야 하는 걸까?
 
