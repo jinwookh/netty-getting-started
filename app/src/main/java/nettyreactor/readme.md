@@ -12,8 +12,9 @@ https://javacan.tistory.com/entry/reactor-netty-simple-tcp-server
 inbound.receive(msg)을 리턴하면, client와 연결이 유지된다.   
 outbound.sendString은 mono를 리턴하고, inbound.receive(msg)는 flux를 리턴한다.
 핸들러 반환 타입에 따라 client와의 연결 유지 여부도 결정되는 걸까?
+-> outbound.sendString.neverComplete()를 리턴하면 연결이 끊어지지 않는다.
 
 # TODO
 - [x] TCP echo server를 만들기
 - [x] TCP echo server에서 클라이언트로 받은 응답을 콘솔에 출력하기
-- [ ] TCP client가 서버의 응답을 콘솔에 출력하기
+- [x] TCP echo client가 서버의 응답을 콘솔에 출력하기

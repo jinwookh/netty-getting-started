@@ -33,11 +33,12 @@ public class TcpEchoServerApplication {
 		latch.await();
 	}
 
-	private static NettyOutbound writeHello(NettyOutbound outbound) {
-		String hello = "hello";
+	private static Mono<Void> writeHello(NettyOutbound outbound) {
+		String hello = "intervened!";
 
 		return outbound
-				.sendString(Mono.just(hello));
+				.sendString(Mono.just(hello))
+				.neverComplete();
 	}
 
 	private static Mono<Void> echo(NettyInbound inbound, NettyOutbound nettyOutbound) {
@@ -45,7 +46,7 @@ public class TcpEchoServerApplication {
 				.asString()
 				.flatMap(msg -> {
 					System.out.println(msg);
-					return nettyOutbound.sendString(Mono.just("hello"));
+					return nettyOutbound.sendString(Mono.just(msg));
 				})
 				.log("logger")
 				.then();
