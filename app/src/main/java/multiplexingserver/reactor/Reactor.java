@@ -1,21 +1,23 @@
+package multiplexingserver.reactor;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
-import java.nio.channels.ServerSockerChannel;
+import java.nio.channels.ServerSocketChannel;
 import java.util.Set;
 
-public class Reactor imlements Runnable {
-	final Selector selector;
-	final ServerSocketChannel serverSockerChannel;
+public class Reactor implements Runnable {
+	Selector selector;
+	ServerSocketChannel serverSocketChannel;
 	
-	Reactor(int poirt) throws IOException {
+	Reactor(int port) throws IOException {
 		selector = Selector.open();
 
-		serverSockerChannel = ServerSocketChannel.open();
-		serverSocketChannel.socket().bind(new InetSocketAddress(port)):
+		serverSocketChannel = ServerSocketChannel.open();
+		serverSocketChannel.socket().bind(new InetSocketAddress(port));
 		serverSocketChannel.configureBlocking(false);
-		SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT):
+		SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
 		//Attach ahandler to handle when an event occurs
 		selectionKey.attach(new AcceptHandler(selector, serverSocketChannel));
@@ -27,4 +29,20 @@ public class Reactor imlements Runnable {
 			while(true) {
 				selector.select();
 				Set<SelectionKey> selected = selector.selectedKeys();
+				for (SelectionKey selectionKey : selected) {
+					dispatch(selectionKey);
+				}
+				selected.clear();
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	void dispatch(SelectionKey selectionKey) {
+		Handler handler = (Handler) selectionKey.attachment();
+		handler.handle();
+	}
+}
+
 
